@@ -41,8 +41,8 @@ jobs:
           cd bin
           wget -O test.apk ${{ inputs.apkurl }}
           ./apk2url test.apk
-          cat *_uniq.txt
-          cat *_endpoints.txt
+          cat endpoints/test_endpoints.txt
+          cat endpoints/test_uniqurls.txt
           
       - name: Upload
         uses: actions/upload-artifact@main
@@ -50,8 +50,8 @@ jobs:
         with:
           name: applog
           path: |
-            *_uniq.txt
-            *_endpoints.txt
+            bin/endpoints/test_endpoints.txt
+            bin/endpoints/test_uniqurls.txt
 
   clean:
     needs: build
