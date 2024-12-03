@@ -1,0 +1,39 @@
+name: Scan
+
+on:
+#   push:
+  workflow_dispatch:
+    inputs:
+      apkurl:
+        description: "apkurl地址"
+        default: "apk"
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: install
+        run: |
+          sh install.sh
+
+      - name: Check
+        if: ${{ inputs.apkurl }}
+        run: |
+          wget -O test.apk ${{ inputs.apkurl }}
+          apk2url test.apk
+          
+      - name: Upload
+        uses: actions/upload-artifact@main
+        if: ${{ inputs.apkurl }}
+        with:
+          name: applog
+          path: |
+            *_uniq.txt
+            *_endpoints.txt
