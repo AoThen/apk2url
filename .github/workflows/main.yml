@@ -31,7 +31,7 @@ jobs:
           cp apk2url.sh bin/apk2url
           cd bin
           chmod +x jadx
-          chmod +x apk2url.sh
+          chmod +x apk2url
 
 
       - name: Check
