@@ -40,7 +40,7 @@ jobs:
         run: |
           cd bin
           wget -O test.apk ${{ inputs.apkurl }}
-          apk2url test.apk
+          ./apk2url test.apk
           cat *_uniq.txt
           cat *_endpoints.txt
           
