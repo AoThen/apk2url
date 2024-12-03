@@ -21,7 +21,7 @@ jobs:
 
       - name: install
         run: |
-          sh install.sh
+          sudo sh install.sh
 
       - name: Check
         if: ${{ inputs.apkurl }}
