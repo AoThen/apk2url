@@ -1,7 +1,7 @@
 name: Scan
 
 on:
-  push:
+  # push:
   workflow_dispatch:
     inputs:
       apkurl:
@@ -21,6 +21,7 @@ jobs:
           fetch-depth: 0
 
       - name: install
+        if: ${{ inputs.apkurl }}
         run: |
           sudo apt update
           sudo apt install openjdk-11-jdk unzip -y
@@ -38,7 +39,7 @@ jobs:
         if: ${{ inputs.apkurl }}
         run: |
           cd bin
-          wget -O test.apk "https://github.com/AoThen/TVBoxAPP/releases/download/mlabalabala-box-20240919-1305/TVBox_mlabalabala_20240919-1305.apk"
+          wget -O test.apk ${{ inputs.apkurl }}
           sh apk2url test.apk
           cat *_uniq.txt
           cat *_endpoints.txt
