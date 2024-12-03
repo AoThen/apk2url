@@ -1,12 +1,12 @@
 name: Scan
 
 on:
-#   push:
+  push:
   workflow_dispatch:
     inputs:
       apkurl:
         description: "apkurl地址"
-        default: "apk"
+        default: "https://github.com/AoThen/TVBoxAPP/releases/download/mlabalabala-box-20240919-1305/TVBox_mlabalabala_20240919-1305.apk"
         required: true
 
 jobs:
@@ -26,7 +26,7 @@ jobs:
           java -version
           sudo apt-get update && sudo apt-get install -y apktool
           wget https://github.com/skylot/jadx/releases/download/v1.5.1/jadx-1.5.1.zip
-          unzip jadx-1.5.1.zip
+          unzip -o jadx-1.5.1.zip
           sudo mv bin/jadx /usr/local/bin/
           sudo chmod +x /usr/local/bin/jadx
           sudo cp lib/jadx-1.5.1-all.jar /usr/local/lib/
