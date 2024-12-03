@@ -24,7 +24,7 @@ dissectApktool() {
 
 dissectJadx() {
     printf "$cyan[+] Decompiling ${1}with Jadx...\n$reset"
-    jadx $APKPATH -d $JADXDIR>/dev/null 2>&1    
+    ./jadx $APKPATH -d $JADXDIR>/dev/null 2>&1    
 }
 
 extractEndpoints() {
@@ -102,7 +102,7 @@ if ! [ -x "$(command -v apktool)" ]; then
     exit 1
 fi
 
-if ! [ -x "$(command -v jadx)" ]; then
+if ! [ -x "$(command -v ./jadx)" ]; then
     printf "$red[!] apk2url requires jadx to be installed$reset"
     exit 1
 fi
