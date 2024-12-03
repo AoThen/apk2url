@@ -25,7 +25,7 @@ jobs:
           sudo apt install openjdk-11-jdk unzip -y
           java -version
           sudo apt-get update && sudo apt-get install -y apktool
-          weget https://github.com/skylot/jadx/releases/download/v1.5.1/jadx-1.5.1.zip
+          wget https://github.com/skylot/jadx/releases/download/v1.5.1/jadx-1.5.1.zip
           unzip jadx-1.5.1.zip
           sudo mv bin/jadx /usr/local/bin/
           sudo chmod +x /usr/local/bin/jadx
@@ -48,3 +48,13 @@ jobs:
           path: |
             *_uniq.txt
             *_endpoints.txt
+
+  clean:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete workflow runs
+        uses: AoThen/delete-workflow-runs@main
+        with:
+          retain_days: 1
+          keep_minimum_runs: 1
