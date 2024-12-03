@@ -21,7 +21,18 @@ jobs:
 
       - name: install
         run: |
-          sudo sh install.sh
+          sudo apt update
+          sudo apt install openjdk-11-jdk unzip -y
+          java -version
+          sudo apt-get update && sudo apt-get install -y apktool
+          weget https://github.com/skylot/jadx/releases/download/v1.5.1/jadx-1.5.1.zip
+          unzip jadx-1.5.1.zip
+          sudo mv bin/jadx /usr/local/bin/
+          sudo chmod +x /usr/local/bin/jadx
+          sudo cp lib/jadx-1.5.1-all.jar /usr/local/lib/
+          cp apk2url.sh /usr/bin/apk2url 2>/dev/null
+          chmod +x /usr/bin/apk2url 2>/dev/null
+
 
       - name: Check
         if: ${{ inputs.apkurl }}
