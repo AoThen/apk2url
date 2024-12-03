@@ -12,7 +12,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    permissions:
+      actions: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -27,18 +28,20 @@ jobs:
           sudo apt-get update && sudo apt-get install -y apktool
           wget https://github.com/skylot/jadx/releases/download/v1.5.1/jadx-1.5.1.zip
           unzip -o jadx-1.5.1.zip
-          sudo mv bin/jadx /usr/local/bin/
-          sudo chmod +x /usr/local/bin/jadx
-          sudo cp lib/jadx-1.5.1-all.jar /usr/local/lib/
-          cp apk2url.sh /usr/bin/apk2url 2>/dev/null
-          chmod +x /usr/bin/apk2url 2>/dev/null
+          cp apk2url.sh bin/apk2url
+          cd bin
+          chmod +x jadx
+          chmod +x apk2url
 
 
       - name: Check
         if: ${{ inputs.apkurl }}
         run: |
+          cd bin
           wget -O test.apk ${{ inputs.apkurl }}
           apk2url test.apk
+          cat *_uniq.txt
+          cat *_endpoints.txt
           
       - name: Upload
         uses: actions/upload-artifact@main
